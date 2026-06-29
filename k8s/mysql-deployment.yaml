@@ -4,29 +4,22 @@ metadata:
   name: tienda-db
   namespace: tienda
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: tienda-db
+  # ... (resto de tu configuración igual)
   template:
-    metadata:
-      labels:
-        app: tienda-db
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0 # Colocar uri de tu imagen en ECR
-          ports:
-            - containerPort: 3306
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: MYSQL_ROOT_PASSWORD
+          image: mysql:8.0
+          # ... (tus env y ports iguales)
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d/init.sql # Aquí ocurre la magia
+              subPath: init.sql
       volumes:
         - name: data
           emptyDir: {}
+        - name: init-script
+          configMap:
+            name: mysql-init-script
