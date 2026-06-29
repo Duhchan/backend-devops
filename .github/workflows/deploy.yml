@@ -32,3 +32,5 @@ jobs:
         kubectl apply -f k8s/mysql-service.yaml
         kubectl apply -f k8s/backend-deployment.yaml
         kubectl apply -f k8s/backend-service.yaml
+        kubectl apply -f k8s/backend-hpa.yaml
+        kubectl apply -f k8s/namespace.yaml
