@@ -23,7 +23,7 @@ jobs:
 
     - name: 3. Conectar al clúster EKS
       run: |
-        aws eks update-kubeconfig --name evaluacion-eks --region us-east-1
+        aws eks update-kubeconfig --name examen_eks --region us-east-1
         
     - name: 4. Desplegar Base de Datos y Backend en Kubernetes
       run: |
